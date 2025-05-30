@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-// Comment class definition
-public class Comment
+class Comment
 {
     public string CommenterName { get; set; }
     public string CommentText { get; set; }
@@ -12,37 +11,49 @@ public class Comment
         CommenterName = commenterName;
         CommentText = commentText;
     }
+
+    public void Display()
+    {
+        Console.WriteLine($"{CommenterName}: {CommentText}");
+    }
 }
 
-// Video class definition
-public class Video
+class Video
 {
     public string Title { get; set; }
     public string Author { get; set; }
-    public int LengthSeconds { get; set; }
-    private List<Comment> comments;
+    public int LengthInSeconds { get; set; }
+    private List<Comment> Comments;
 
-    public Video(string title, string author, int lengthSeconds)
+    public Video(string title, string author, int lengthInSeconds)
     {
         Title = title;
         Author = author;
-        LengthSeconds = lengthSeconds;
-        comments = new List<Comment>();
+        LengthInSeconds = lengthInSeconds;
+        Comments = new List<Comment>();
     }
 
     public void AddComment(Comment comment)
     {
-        comments.Add(comment);
+        Comments.Add(comment);
     }
 
-    public int GetNumberOfComments()
+    public int GetCommentCount()
     {
-        return comments.Count;
+        return Comments.Count;
     }
 
-    public List<Comment> GetComments()
+    public void DisplayVideoInfo()
     {
-        return comments;
+        Console.WriteLine($"\nTitle: {Title}");
+        Console.WriteLine($"Author: {Author}");
+        Console.WriteLine($"Length: {LengthInSeconds} seconds");
+        Console.WriteLine($"Number of Comments: {GetCommentCount()}");
+        Console.WriteLine("Comments:");
+        foreach (Comment comment in Comments)
+        {
+            comment.Display();
+        }
     }
 }
 
@@ -50,42 +61,40 @@ class Program
 {
     static void Main(string[] args)
     {
-        // Create videos
-        Video video1 = new Video("How to Cook Pasta", "Chef Mario", 420);
-        Video video2 = new Video("Learn to Draw a Cat", "ArtWithAmy", 300);
-        Video video3 = new Video("Soccer Tricks for Beginners", "Coach Leo", 500);
+        List<Video> videos = new List<Video>();
 
-        // Add comments to video1
-        video1.AddComment(new Comment("Alice", "Thanks, this was super helpful!"));
-        video1.AddComment(new Comment("Bob", "I love pasta!"));
-        video1.AddComment(new Comment("Charlie", "Great instructions, easy to follow."));
+        // Video 1 - Product: BrewMaster
+        Video video1 = new Video("Unboxing the new BrewMaster Coffee Kit", "HomeCafe", 420);
+        video1.AddComment(new Comment("Lily", "I love BrewMaster's filters!"));
+        video1.AddComment(new Comment("Max", "Is that the new BrewMaster Pro 300?"));
+        video1.AddComment(new Comment("Nina", "Great review. I’m sold on BrewMaster now."));
+        videos.Add(video1);
 
-        // Add comments to video2
-        video2.AddComment(new Comment("Daisy", "My cat looks so cute now!"));
-        video2.AddComment(new Comment("Ethan", "Please do a dog next."));
-        video2.AddComment(new Comment("Faith", "Very clear steps!"));
+        // Video 2 - Product: TravelLite
+        Video video2 = new Video("Top 5 Budget Travel Gadgets", "JetSetLife", 540);
+        video2.AddComment(new Comment("Omar", "That TravelLite pillow looks awesome."));
+        video2.AddComment(new Comment("Paula", "I’ve used TravelLite for years—never disappointed."));
+        video2.AddComment(new Comment("Quinn", "Wish I had known about this brand earlier."));
+        videos.Add(video2);
 
-        // Add comments to video3
-        video3.AddComment(new Comment("George", "I learned so much, thanks!"));
-        video3.AddComment(new Comment("Hannah", "Awesome tricks."));
-        video3.AddComment(new Comment("Ivan", "Now I can impress my friends!"));
+        // Video 3 - Product: PureShine
+        Video video3 = new Video("How to Clean Sneakers with PureShine", "StyleFix", 315);
+        video3.AddComment(new Comment("Rita", "PureShine really works! Thanks for the demo."));
+        video3.AddComment(new Comment("Sam", "Do they sell PureShine at Target?"));
+        video3.AddComment(new Comment("Tina", "Love how clean my shoes get with this."));
+        videos.Add(video3);
 
-        // Put videos in a list
-        List<Video> videos = new List<Video> { video1, video2, video3 };
+        // Video 4 - Product: SlimPad
+        Video video4 = new Video("Best Laptops for College Students", "TechTalk", 600);
+        video4.AddComment(new Comment("Uma", "Is the SlimPad 14 better than SlimPad 13?"));
+        video4.AddComment(new Comment("Victor", "I just bought the SlimPad. Super fast."));
+        video4.AddComment(new Comment("Wendy", "Looking at SlimPad or LightNote—any thoughts?"));
+        videos.Add(video4);
 
-        // Display information for each video
+        // Display information for all videos
         foreach (Video video in videos)
         {
-            Console.WriteLine($"Title: {video.Title}");
-            Console.WriteLine($"Author: {video.Author}");
-            Console.WriteLine($"Length: {video.LengthSeconds} seconds");
-            Console.WriteLine($"Number of comments: {video.GetNumberOfComments()}");
-            Console.WriteLine("Comments:");
-            foreach (Comment comment in video.GetComments())
-            {
-                Console.WriteLine($"  {comment.CommenterName}: {comment.CommentText}");
-            }
-            Console.WriteLine(new string('-', 40));
+            video.DisplayVideoInfo();
         }
     }
 }
