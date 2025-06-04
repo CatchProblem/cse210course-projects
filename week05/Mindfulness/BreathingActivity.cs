@@ -1,14 +1,25 @@
+using System;
+using System.Threading;
+
 public class BreathingActivity : Activity
 {
     public BreathingActivity()
     {
-        _name = "Breathing";
-        _description = "This activity helps you relax by guiding you through breathing in and out slowly.";
-        _duration = 30;
+        _name = "Breathing Activity";
+        _description = "This activity will help you relax by walking you through breathing in and out slowly.";
     }
 
-    public void Run()
+    protected override void ExecuteActivity()
     {
-        // TODO: Implement Breathing activity logic
+        int cycle = Duration / 6;
+        for (int i = 0; i < cycle; i++)
+        {
+            Console.Write("Breathe in... ");
+            ShowCountdown(3);
+            Console.WriteLine();
+            Console.Write("Breathe out... ");
+            ShowCountdown(3);
+            Console.WriteLine();
+        }
     }
 }
